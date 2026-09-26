@@ -256,8 +256,16 @@ body {
 
 
 /* =========================
-   N.S.A FILES
+   N.S.A-FILES
 ========================= */
+
+.nsaDescription {
+    color: #555;
+    font-size: 12px;
+    line-height: 1.7;
+    max-width: 700px;
+    margin-top: 20px;
+}
 
 .nsaFiles {
     display: grid;
@@ -267,7 +275,7 @@ body {
 }
 
 .nsaFile {
-    min-height: 145px;
+    min-height: 120px;
     border: 1px solid #292929;
     background: #050505;
     display: flex;
@@ -276,32 +284,21 @@ body {
     text-align: center;
     cursor: pointer;
     transition: 0.2s;
-    position: relative;
 }
 
 .nsaFile:hover {
     border-color: #666;
-    background: #0a0a0a;
+    background: #0b0b0b;
 }
 
 .nsaFileName {
-    color: #181818;
-    background: #151515;
-    padding: 7px 10px;
-    font-size: 12px;
+    color: #444;
+    font-size: 13px;
     letter-spacing: 2px;
-    transition: 0.2s;
 }
 
 .nsaFile:hover .nsaFileName {
-    color: #333;
-}
-
-.nsaDescription {
-    margin-top: 15px;
-    color: #444;
-    font-size: 12px;
-    line-height: 1.7;
+    color: #888;
 }
 
 
@@ -398,7 +395,10 @@ footer {
 
 @media(max-width:700px) {
 
-    .files,
+    .files {
+        grid-template-columns: 1fr;
+    }
+
     .nsaFiles {
         grid-template-columns: 1fr;
     }
@@ -548,112 +548,82 @@ footer {
     </div>
 
 
-    <!-- =========================
-         SUBJECT FILES
-    ========================= -->
+    <!-- SUBJECT FILES -->
 
     <div class="sectionTitle">
         ACTIVE / INACTIVE SUBJECT RECORDS
     </div>
 
-
     <div class="files">
-
-
-        <!-- SUJETO 0047 -->
 
         <div
             class="file"
             onclick="window.location.href='https://mrcoolxx.github.io/patient-records/'"
         >
-
             <div class="fileName">
                 SUJETO:0047
             </div>
-
         </div>
 
-
-        <!-- SUJETO 0108 -->
 
         <div
             class="file"
             onclick="window.location.href='https://mrcoolxx.github.io/patient-records-1/'"
         >
-
             <div class="fileName">
                 SUJETO:0108
             </div>
-
         </div>
 
-
-        <!-- CLASIFICADO 01 -->
 
         <div
             class="file classified"
             onclick="openClassified('ARCHIVE-01')"
         >
-
             <div class="fileName">
                 CLASURADO
             </div>
-
         </div>
 
-
-        <!-- CLASIFICADO 02 -->
 
         <div
             class="file classified"
             onclick="openClassified('ARCHIVE-02')"
         >
-
             <div class="fileName">
                 CLASURADO
             </div>
-
         </div>
 
-
-        <!-- CLASIFICADO 03 -->
 
         <div
             class="file classified"
             onclick="openClassified('ARCHIVE-03')"
         >
-
             <div class="fileName">
                 CLASURADO
             </div>
-
         </div>
 
-
-        <!-- CLASIFICADO 04 -->
 
         <div
             class="file classified"
             onclick="openClassified('ARCHIVE-04')"
         >
-
             <div class="fileName">
                 CLASURADO
             </div>
-
         </div>
-
 
     </div>
 
 
-    <!-- =========================
-         N.S.A-FILES
-    ========================= -->
+    <!-- N.S.A-FILES -->
 
     <div class="sectionTitle">
         N.S.A-FILES
     </div>
+
 
     <div class="nsaDescription">
 
@@ -669,73 +639,53 @@ footer {
     <div class="nsaFiles">
 
 
-        <!-- N.S.A-FILE 01 -->
-
         <div
             class="nsaFile"
             onclick="openClassified('NSA-FILE-01')"
         >
-
             <div class="nsaFileName">
                 N.S.A-FILE-01
             </div>
-
         </div>
 
-
-        <!-- N.S.A-FILE 02 -->
 
         <div
             class="nsaFile"
             onclick="openClassified('NSA-FILE-02')"
         >
-
             <div class="nsaFileName">
                 N.S.A-FILE-02
             </div>
-
         </div>
 
-
-        <!-- N.S.A-FILE 03 -->
 
         <div
             class="nsaFile"
             onclick="openClassified('NSA-FILE-03')"
         >
-
             <div class="nsaFileName">
                 N.S.A-FILE-03
             </div>
-
         </div>
 
-
-        <!-- N.S.A-FILE 04 -->
 
         <div
             class="nsaFile"
             onclick="openClassified('NSA-FILE-04')"
         >
-
             <div class="nsaFileName">
                 N.S.A-FILE-04
             </div>
-
         </div>
 
-
-        <!-- N.S.A-FILE 05 -->
 
         <div
             class="nsaFile"
             onclick="openClassified('NSA-FILE-05')"
         >
-
             <div class="nsaFileName">
                 N.S.A-FILE-05
             </div>
-
         </div>
 
 
@@ -758,9 +708,7 @@ footer {
 </div>
 
 
-<!-- =========================
-     PASSWORD WINDOW
-========================= -->
+<!-- PASSWORD WINDOW -->
 
 <div id="passwordModal">
 
@@ -773,20 +721,25 @@ footer {
             X
         </div>
 
+
         <div class="modalTitle">
             CLASSIFIED FILE
         </div>
 
+
         <p>
             ENTER AUTHORIZATION CODE:
         </p>
+
 
         <input
             type="password"
             id="classifiedPassword"
         >
 
+
         <br>
+
 
         <button
             class="modalButton"
@@ -794,6 +747,7 @@ footer {
         >
             ENTER
         </button>
+
 
         <div id="modalMessage"></div>
 
@@ -804,7 +758,6 @@ footer {
 
 <script>
 
-
 /* =========================
    LOGIN
 ========================= */
@@ -813,6 +766,7 @@ function login() {
 
     const input =
         document.getElementById("passwordInput").value;
+
 
     if (input === "90862") {
 
@@ -857,15 +811,15 @@ let currentArchive = "";
    ARCHIVE-03 = 1899
    ARCHIVE-04 = 0047
 
-
    N.S.A-FILES
 
-   NSA-FILE-01 = PENDIENTE
+   NSA-FILE-01 = agency1
    NSA-FILE-02 = PENDIENTE
    NSA-FILE-03 = 1899
    NSA-FILE-04 = mybrain
    NSA-FILE-05 = PENDIENTE
 */
+
 
 const archivePasswords = {
 
@@ -877,8 +831,7 @@ const archivePasswords = {
 
     "ARCHIVE-04": "0047",
 
-
-    "NSA-FILE-01": "PENDIENTE",
+    "NSA-FILE-01": "agency1",
 
     "NSA-FILE-02": "PENDIENTE",
 
@@ -896,6 +849,9 @@ const archivePasswords = {
 ========================= */
 
 const archiveLinks = {
+
+    "NSA-FILE-01":
+        "https://nosecurityagency.github.io/N.S.A-Files/",
 
     "NSA-FILE-03":
         "https://nosecurityagency.github.io/MENTAL-ARCHIVE/",
@@ -952,10 +908,6 @@ function checkClassified() {
         archivePasswords[currentArchive] === input
     ) {
 
-        /*
-            SI TIENE LINK,
-            ABRIR EL ARCHIVO
-        */
 
         if (archiveLinks[currentArchive]) {
 
@@ -967,36 +919,14 @@ function checkClassified() {
         }
 
 
-        /*
-            ARCHIVOS SIN LINK TODAVÍA
-        */
-
-        if (
-            currentArchive === "NSA-FILE-01" ||
-            currentArchive === "NSA-FILE-02" ||
-            currentArchive === "NSA-FILE-05"
-        ) {
-
-            document.getElementById("modalMessage").style.color = "#777";
-
-            document.getElementById("modalMessage").textContent =
-                "ACCESS GRANTED — FILE FOUND";
-
-            return;
-
-        }
-
-
-        /*
-            ARCHIVOS ANTIGUOS
-        */
-
         document.getElementById("modalMessage").style.color = "#777";
 
         document.getElementById("modalMessage").textContent =
             "ACCESS GRANTED — FILE FOUND";
 
+
     } else {
+
 
         document.getElementById("modalMessage").style.color = "#600000";
 
@@ -1009,7 +939,7 @@ function checkClassified() {
 
 
 /* =========================
-   ENTER KEY
+   ENTER KEY — LOGIN
 ========================= */
 
 document
@@ -1022,6 +952,10 @@ document
 
 });
 
+
+/* =========================
+   ENTER KEY — CLASSIFIED
+========================= */
 
 document
 .getElementById("classifiedPassword")
