@@ -256,6 +256,56 @@ body {
 
 
 /* =========================
+   N.S.A FILES
+========================= */
+
+.nsaFiles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.nsaFile {
+    min-height: 145px;
+    border: 1px solid #292929;
+    background: #050505;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s;
+    position: relative;
+}
+
+.nsaFile:hover {
+    border-color: #666;
+    background: #0a0a0a;
+}
+
+.nsaFileName {
+    color: #181818;
+    background: #151515;
+    padding: 7px 10px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    transition: 0.2s;
+}
+
+.nsaFile:hover .nsaFileName {
+    color: #333;
+}
+
+.nsaDescription {
+    margin-top: 15px;
+    color: #444;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+
+/* =========================
    PASSWORD MODAL
 ========================= */
 
@@ -348,7 +398,8 @@ footer {
 
 @media(max-width:700px) {
 
-    .files {
+    .files,
+    .nsaFiles {
         grid-template-columns: 1fr;
     }
 
@@ -509,9 +560,7 @@ footer {
     <div class="files">
 
 
-        <!-- =====================
-             SUJETO 0047
-        ====================== -->
+        <!-- SUJETO 0047 -->
 
         <div
             class="file"
@@ -525,9 +574,7 @@ footer {
         </div>
 
 
-        <!-- =====================
-             SUJETO 0108
-        ====================== -->
+        <!-- SUJETO 0108 -->
 
         <div
             class="file"
@@ -541,9 +588,7 @@ footer {
         </div>
 
 
-        <!-- =====================
-             CLASIFICADO 01
-        ====================== -->
+        <!-- CLASIFICADO 01 -->
 
         <div
             class="file classified"
@@ -557,9 +602,7 @@ footer {
         </div>
 
 
-        <!-- =====================
-             CLASIFICADO 02
-        ====================== -->
+        <!-- CLASIFICADO 02 -->
 
         <div
             class="file classified"
@@ -573,9 +616,7 @@ footer {
         </div>
 
 
-        <!-- =====================
-             CLASIFICADO 03
-        ====================== -->
+        <!-- CLASIFICADO 03 -->
 
         <div
             class="file classified"
@@ -589,9 +630,7 @@ footer {
         </div>
 
 
-        <!-- =====================
-             CLASIFICADO 04
-        ====================== -->
+        <!-- CLASIFICADO 04 -->
 
         <div
             class="file classified"
@@ -600,6 +639,101 @@ footer {
 
             <div class="fileName">
                 CLASURADO
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =========================
+         N.S.A-FILES
+    ========================= -->
+
+    <div class="sectionTitle">
+        N.S.A-FILES
+    </div>
+
+    <div class="nsaDescription">
+
+        <p>
+            ARCHIVOS INTERNOS DE NO SECURITY AGENCY.
+            ALGUNOS DOCUMENTOS REQUIEREN AUTORIZACIÓN
+            ESPECIAL PARA SU CONSULTA.
+        </p>
+
+    </div>
+
+
+    <div class="nsaFiles">
+
+
+        <!-- N.S.A-FILE 01 -->
+
+        <div
+            class="nsaFile"
+            onclick="openClassified('NSA-FILE-01')"
+        >
+
+            <div class="nsaFileName">
+                N.S.A-FILE-01
+            </div>
+
+        </div>
+
+
+        <!-- N.S.A-FILE 02 -->
+
+        <div
+            class="nsaFile"
+            onclick="openClassified('NSA-FILE-02')"
+        >
+
+            <div class="nsaFileName">
+                N.S.A-FILE-02
+            </div>
+
+        </div>
+
+
+        <!-- N.S.A-FILE 03 -->
+
+        <div
+            class="nsaFile"
+            onclick="openClassified('NSA-FILE-03')"
+        >
+
+            <div class="nsaFileName">
+                N.S.A-FILE-03
+            </div>
+
+        </div>
+
+
+        <!-- N.S.A-FILE 04 -->
+
+        <div
+            class="nsaFile"
+            onclick="openClassified('NSA-FILE-04')"
+        >
+
+            <div class="nsaFileName">
+                N.S.A-FILE-04
+            </div>
+
+        </div>
+
+
+        <!-- N.S.A-FILE 05 -->
+
+        <div
+            class="nsaFile"
+            onclick="openClassified('NSA-FILE-05')"
+        >
+
+            <div class="nsaFileName">
+                N.S.A-FILE-05
             </div>
 
         </div>
@@ -625,7 +759,7 @@ footer {
 
 
 <!-- =========================
-     CLASSIFIED PASSWORD WINDOW
+     PASSWORD WINDOW
 ========================= -->
 
 <div id="passwordModal">
@@ -716,12 +850,21 @@ let currentArchive = "";
 
 
 /*
-   CONTRASEÑAS DE LOS ARCHIVOS
+   ARCHIVOS ANTIGUOS
 
    ARCHIVE-01 = 1947
    ARCHIVE-02 = 0108
    ARCHIVE-03 = 1899
    ARCHIVE-04 = 0047
+
+
+   N.S.A-FILES
+
+   NSA-FILE-01 = PENDIENTE
+   NSA-FILE-02 = PENDIENTE
+   NSA-FILE-03 = 1899
+   NSA-FILE-04 = mybrain
+   NSA-FILE-05 = PENDIENTE
 */
 
 const archivePasswords = {
@@ -732,7 +875,33 @@ const archivePasswords = {
 
     "ARCHIVE-03": "1899",
 
-    "ARCHIVE-04": "0047"
+    "ARCHIVE-04": "0047",
+
+
+    "NSA-FILE-01": "PENDIENTE",
+
+    "NSA-FILE-02": "PENDIENTE",
+
+    "NSA-FILE-03": "1899",
+
+    "NSA-FILE-04": "mybrain",
+
+    "NSA-FILE-05": "PENDIENTE"
+
+};
+
+
+/* =========================
+   LINKS
+========================= */
+
+const archiveLinks = {
+
+    "NSA-FILE-03":
+        "https://nosecurityagency.github.io/MENTAL-ARCHIVE/",
+
+    "NSA-FILE-04":
+        "https://nosecurityagency.github.io/mybrain./"
 
 };
 
@@ -782,6 +951,45 @@ function checkClassified() {
     if (
         archivePasswords[currentArchive] === input
     ) {
+
+        /*
+            SI TIENE LINK,
+            ABRIR EL ARCHIVO
+        */
+
+        if (archiveLinks[currentArchive]) {
+
+            window.location.href =
+                archiveLinks[currentArchive];
+
+            return;
+
+        }
+
+
+        /*
+            ARCHIVOS SIN LINK TODAVÍA
+        */
+
+        if (
+            currentArchive === "NSA-FILE-01" ||
+            currentArchive === "NSA-FILE-02" ||
+            currentArchive === "NSA-FILE-05"
+        ) {
+
+            document.getElementById("modalMessage").style.color = "#777";
+
+            document.getElementById("modalMessage").textContent =
+                "ACCESS GRANTED — FILE FOUND";
+
+            return;
+
+        }
+
+
+        /*
+            ARCHIVOS ANTIGUOS
+        */
 
         document.getElementById("modalMessage").style.color = "#777";
 
