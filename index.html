@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>NO SECURITY AGENCY</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background:
+        radial-gradient(circle at center, #111 0%, #050505 55%, #000 100%);
+    color: #aaa;
+    font-family: "Courier New", monospace;
+    min-height: 100vh;
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+#loginScreen {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.loginBox {
+    width: 350px;
+    max-width: 90%;
+    text-align: center;
+    border: 1px solid #333;
+    padding: 30px;
+    background: #050505;
+    box-shadow: 0 0 30px #000;
+}
+
+.loginBox h1 {
+    font-size: 20px;
+    letter-spacing: 5px;
+    color: #aaa;
+}
+
+.loginBox p {
+    color: #555;
+    font-size: 12px;
+}
+
+#passwordInput {
+    width: 100%;
+    background: #000;
+    color: #aaa;
+    border: 1px solid #444;
+    padding: 12px;
+    text-align: center;
+    font-family: "Courier New", monospace;
+    outline: none;
+}
+
+#passwordInput:focus {
+    border-color: #777;
+}
+
+.enterButton {
+    margin-top: 15px;
+    background: #080808;
+    border: 1px solid #444;
+    color: #888;
+    padding: 10px 25px;
+    font-family: "Courier New", monospace;
+    cursor: pointer;
+}
+
+.enterButton:hover {
+    color: white;
+    border-color: #888;
+}
+
+.loginError {
+    color: #650000;
+    font-size: 12px;
+    margin-top: 12px;
+    display: none;
+}
+
+
+/* =========================
+   WARNING
+========================= */
+
+#warningScreen {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.97);
+    z-index: 900;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.warningBox {
+    width: 650px;
+    max-width: 90%;
+    border: 1px solid #500000;
+    padding: 35px;
+    background: #050505;
+    box-shadow: 0 0 40px #000;
+}
+
+.warningTitle {
+    color: #700000;
+    font-size: 25px;
+    letter-spacing: 4px;
+    margin-bottom: 25px;
+}
+
+.warningText {
+    line-height: 1.8;
+    color: #888;
+    font-size: 14px;
+}
+
+.warningButton {
+    margin-top: 25px;
+    background: #080808;
+    color: #aaa;
+    border: 1px solid #555;
+    padding: 10px 35px;
+    font-family: "Courier New", monospace;
+    cursor: pointer;
+}
+
+.warningButton:hover {
+    color: white;
+}
+
+
+/* =========================
+   MAIN PAGE
+========================= */
+
+#mainPage {
+    display: none;
+    padding: 50px 20px;
+}
+
+.container {
+    max-width: 950px;
+    margin: auto;
+}
+
+
+/* =========================
+   AGENCY
+========================= */
+
+.agency {
+    text-align: center;
+    padding: 60px 20px 45px;
+    border-bottom: 1px solid #333;
+}
+
+.agency h1 {
+    margin: 0;
+    font-size: clamp(35px, 7vw, 75px);
+    letter-spacing: 10px;
+    color: #aaa;
+}
+
+.agency .year {
+    margin-top: 15px;
+    color: #444;
+    letter-spacing: 5px;
+}
+
+.description {
+    max-width: 750px;
+    margin: 35px auto 0;
+    color: #777;
+    line-height: 1.8;
+    font-size: 14px;
+}
+
+
+/* =========================
+   FILES
+========================= */
+
+.sectionTitle {
+    margin-top: 50px;
+    color: #666;
+    letter-spacing: 4px;
+    border-bottom: 1px dashed #333;
+    padding-bottom: 10px;
+}
+
+.files {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.file {
+    min-height: 130px;
+    border: 1px solid #333;
+    background: #080808;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.file:hover {
+    border-color: #777;
+    background: #0d0d0d;
+}
+
+.fileName {
+    color: #777;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+
+/* =========================
+   CLASSIFIED
+========================= */
+
+.classified {
+    background: #000;
+}
+
+.classified .fileName {
+    color: #111;
+    background: #111;
+    padding: 5px;
+}
+
+.classified:hover .fileName {
+    color: #333;
+}
+
+
+/* =========================
+   PASSWORD MODAL
+========================= */
+
+#passwordModal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.94);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 800;
+}
+
+.modalBox {
+    width: 400px;
+    max-width: 90%;
+    background: #050505;
+    border: 1px solid #444;
+    padding: 30px;
+    position: relative;
+}
+
+.closeButton {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    color: #555;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.closeButton:hover {
+    color: white;
+}
+
+.modalTitle {
+    color: #888;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+}
+
+#classifiedPassword {
+    width: 100%;
+    padding: 11px;
+    background: #000;
+    border: 1px solid #444;
+    color: #aaa;
+    font-family: "Courier New", monospace;
+    outline: none;
+}
+
+.modalButton {
+    margin-top: 15px;
+    padding: 9px 20px;
+    background: #080808;
+    border: 1px solid #444;
+    color: #888;
+    font-family: "Courier New", monospace;
+    cursor: pointer;
+}
+
+.modalButton:hover {
+    color: white;
+}
+
+#modalMessage {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #600000;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    margin-top: 70px;
+    border-top: 1px solid #222;
+    padding: 25px;
+    text-align: center;
+    color: #333;
+    font-size: 11px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:700px) {
+
+    .files {
+        grid-template-columns: 1fr;
+    }
+
+    .agency h1 {
+        letter-spacing: 4px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     LOGIN
+========================= -->
+
+<div id="loginScreen">
+
+    <div class="loginBox">
+
+        <h1>RESTRICTED ACCESS</h1>
+
+        <p>NO SECURITY AGENCY</p>
+
+        <p>ENTER AUTHORIZATION CODE</p>
+
+        <input
+            type="password"
+            id="passwordInput"
+            placeholder="•••••"
+        >
+
+        <button
+            class="enterButton"
+            onclick="login()"
+        >
+            ENTER
+        </button>
+
+        <div
+            class="loginError"
+            id="loginError"
+        >
+            ACCESS DENIED
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     WARNING
+========================= -->
+
+<div id="warningScreen">
+
+    <div class="warningBox">
+
+        <div class="warningTitle">
+            WARNING
+        </div>
+
+        <div class="warningText">
+
+            Este sistema contiene información privada y
+            clasificada perteneciente a NO SECURITY AGENCY.
+
+            <br><br>
+
+            Cualquier persona que filtre, copie o distribuya
+            contenido privado de la agencia será
+            <b>despedida de por vida de cualquier empresa
+            afiliada</b> y podrá ser sometida a las
+            sanciones establecidas por la agencia,
+            incluyendo la ejecución.
+
+            <br><br>
+
+            Todo acceso queda registrado.
+
+            <br><br>
+
+            <b>USTED HA SIDO ADVERTIDO.</b>
+
+        </div>
+
+        <button
+            class="warningButton"
+            onclick="closeWarning()"
+        >
+            OK
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     MAIN PAGE
+========================= -->
+
+<div id="mainPage">
+
+<div class="container">
+
+
+    <!-- AGENCY -->
+
+    <div class="agency">
+
+        <h1>
+            NO SECURITY AGENCY
+        </h1>
+
+        <div class="year">
+            ESTABLISHED — 1899
+        </div>
+
+        <div class="description">
+
+            NO SECURITY AGENCY es una organización dedicada
+            a la investigación, preservación y desarrollo
+            de tecnologías experimentales.
+
+            <br><br>
+
+            La agencia trabaja con sistemas de inteligencia
+            artificial, almacenamiento de información,
+            transferencia de conciencia y simulaciones
+            digitales.
+
+            <br><br>
+
+            Algunos de los proyectos contenidos en este
+            archivo han sido clasificados debido a su
+            naturaleza experimental.
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         SUBJECT FILES
+    ========================= -->
+
+    <div class="sectionTitle">
+        ACTIVE / INACTIVE SUBJECT RECORDS
+    </div>
+
+
+    <div class="files">
+
+
+        <!-- =====================
+             SUJETO 0047
+        ====================== -->
+
+        <div
+            class="file"
+            onclick="window.location.href='https://mrcoolxx.github.io/patient-records/'"
+        >
+
+            <div class="fileName">
+                SUJETO:0047
+            </div>
+
+        </div>
+
+
+        <!-- =====================
+             SUJETO 0108
+        ====================== -->
+
+        <div
+            class="file"
+            onclick="window.location.href='https://mrcoolxx.github.io/patient-records-1/'"
+        >
+
+            <div class="fileName">
+                SUJETO:0108
+            </div>
+
+        </div>
+
+
+        <!-- =====================
+             CLASIFICADO 01
+        ====================== -->
+
+        <div
+            class="file classified"
+            onclick="openClassified('ARCHIVE-01')"
+        >
+
+            <div class="fileName">
+                CLASURADO
+            </div>
+
+        </div>
+
+
+        <!-- =====================
+             CLASIFICADO 02
+        ====================== -->
+
+        <div
+            class="file classified"
+            onclick="openClassified('ARCHIVE-02')"
+        >
+
+            <div class="fileName">
+                CLASURADO
+            </div>
+
+        </div>
+
+
+        <!-- =====================
+             CLASIFICADO 03
+        ====================== -->
+
+        <div
+            class="file classified"
+            onclick="openClassified('ARCHIVE-03')"
+        >
+
+            <div class="fileName">
+                CLASURADO
+            </div>
+
+        </div>
+
+
+        <!-- =====================
+             CLASIFICADO 04
+        ====================== -->
+
+        <div
+            class="file classified"
+            onclick="openClassified('ARCHIVE-04')"
+        >
+
+            <div class="fileName">
+                CLASURADO
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <footer>
+
+        NO SECURITY AGENCY — EST. 1899
+
+        <br><br>
+
+        INTERNAL ARCHIVE // UNAUTHORIZED ACCESS PROHIBITED
+
+    </footer>
+
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     CLASSIFIED PASSWORD WINDOW
+========================= -->
+
+<div id="passwordModal">
+
+    <div class="modalBox">
+
+        <div
+            class="closeButton"
+            onclick="closeModal()"
+        >
+            X
+        </div>
+
+        <div class="modalTitle">
+            CLASSIFIED FILE
+        </div>
+
+        <p>
+            ENTER AUTHORIZATION CODE:
+        </p>
+
+        <input
+            type="password"
+            id="classifiedPassword"
+        >
+
+        <br>
+
+        <button
+            class="modalButton"
+            onclick="checkClassified()"
+        >
+            ENTER
+        </button>
+
+        <div id="modalMessage"></div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+
+/* =========================
+   LOGIN
+========================= */
+
+function login() {
+
+    const input =
+        document.getElementById("passwordInput").value;
+
+    if (input === "90862") {
+
+        document.getElementById("loginScreen").style.display = "none";
+
+        document.getElementById("warningScreen").style.display = "flex";
+
+    } else {
+
+        document.getElementById("loginError").style.display = "block";
+
+    }
+
+}
+
+
+/* =========================
+   CLOSE WARNING
+========================= */
+
+function closeWarning() {
+
+    document.getElementById("warningScreen").style.display = "none";
+
+    document.getElementById("mainPage").style.display = "block";
+
+}
+
+
+/* =========================
+   CLASSIFIED FILES
+========================= */
+
+let currentArchive = "";
+
+
+/*
+   CONTRASEÑAS DE LOS ARCHIVOS
+
+   ARCHIVE-01 = 1947
+   ARCHIVE-02 = 0108
+   ARCHIVE-03 = 1899
+   ARCHIVE-04 = 0047
+*/
+
+const archivePasswords = {
+
+    "ARCHIVE-01": "1947",
+
+    "ARCHIVE-02": "0108",
+
+    "ARCHIVE-03": "1899",
+
+    "ARCHIVE-04": "0047"
+
+};
+
+
+/* =========================
+   OPEN CLASSIFIED
+========================= */
+
+function openClassified(archive) {
+
+    currentArchive = archive;
+
+    document.getElementById("classifiedPassword").value = "";
+
+    document.getElementById("modalMessage").textContent = "";
+
+    document.getElementById("passwordModal").style.display = "flex";
+
+    document
+        .getElementById("classifiedPassword")
+        .focus();
+
+}
+
+
+/* =========================
+   CLOSE MODAL
+========================= */
+
+function closeModal() {
+
+    document.getElementById("passwordModal").style.display = "none";
+
+}
+
+
+/* =========================
+   CHECK PASSWORD
+========================= */
+
+function checkClassified() {
+
+    const input =
+        document.getElementById("classifiedPassword").value;
+
+
+    if (
+        archivePasswords[currentArchive] === input
+    ) {
+
+        document.getElementById("modalMessage").style.color = "#777";
+
+        document.getElementById("modalMessage").textContent =
+            "ACCESS GRANTED — FILE FOUND";
+
+    } else {
+
+        document.getElementById("modalMessage").style.color = "#600000";
+
+        document.getElementById("modalMessage").textContent =
+            "ACCESS DENIED";
+
+    }
+
+}
+
+
+/* =========================
+   ENTER KEY
+========================= */
+
+document
+.getElementById("passwordInput")
+.addEventListener("keydown", function(event) {
+
+    if (event.key === "Enter") {
+        login();
+    }
+
+});
+
+
+document
+.getElementById("classifiedPassword")
+.addEventListener("keydown", function(event) {
+
+    if (event.key === "Enter") {
+        checkClassified();
+    }
+
+});
+
+</script>
+
+</body>
+</html>
